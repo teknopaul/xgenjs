@@ -1,0 +1,32 @@
+<html lang="en">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>xGenJS test page</title>
+		<script type="text/javascript" src="../lib/xgen-browser-1.0.1.js"></script>
+		<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function(){
+			var xGen = new XGen(window.document).configure();
+			xGen.select("#container")
+				.create("div#header/h1").setTextContent("XGen Test Page");
+			
+			xGen.select("#container")
+				.create("div#menu/ul/li[5]/a.button/span").setTextContent(
+					"one",
+					"two",
+					"three",
+					"four",
+					"five"
+				);
+			
+			xGen.select("#container")
+				.create('<div>Generated from XML</div>');
+			
+			
+		});
+		</script>
+	</head>
+	<body>
+		<div id="container">
+		</div>
+	</body>
+</html>

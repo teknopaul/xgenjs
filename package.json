@@ -1,0 +1,41 @@
+{
+   "name": "xgenjs",
+   "version": "1.0.1",
+   "description": "JavaScript library for creating DOM elements with xGenPaths.",
+   "keywords": [
+       "dom",
+       "xml",
+       "xGenPath"
+   ],
+   "maintainers": [
+       {
+           "name": "teknopaul",
+           "email": "me@teknopaul.com",
+           "web": "http://teknopaul.com" 
+       } 
+   ],
+   "contributors": [],
+   "bugs": {
+       "mail": "bugs@teknopaul.com",
+       "url": "https://github.com/teknopaul" 
+   },
+   "licenses": [
+       {
+           "type": "LGPLv3",
+           "url": "https://www.gnu.org/licenses/lgpl-3.0.txt" 
+       } 
+   ],
+   "repository": 
+       {
+           "type": "git",
+           "url": "https://github.com/teknopaul/xgenjs.git" 
+       } 
+   ,
+   "dependencies": {
+       "xmldom" : "0.1.19",
+       "xpath" : "0.0.6"
+   },
+   "scripts": {
+       "build": "build.sh"
+   }
+}

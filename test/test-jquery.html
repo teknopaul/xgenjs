@@ -1,0 +1,59 @@
+<html lang="en">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>xGenJS test page</title>
+		<script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+		<script type="text/javascript" src="../lib/xgen-browser-1.0.1.js"></script>
+		<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+			
+			// Kind of by accident jQuery and XGen play very nicely together...
+			
+			// jQuery integration is automatic
+			// Just by adding gen-browser-1.0.1.js after jquery create() is bound.
+			
+			// Now we can use xGenPaths to create DOM elements via jQuery selectors.
+			
+			// jQuery ..... XGen .................. jQuery
+			$("#container").create("div#header/h1").text("XGen jQuery Integration Test Page");
+			
+			// N.B. create() now returns jQuery lists.
+			$("#container").create("div#menu/ul/li[5]/a.button/span").text("one");
+			
+			// What is returned is NOT an XGenNodeList so the following would not work
+				/*
+				.setTextContent(
+					"one",
+					"two",
+					"three",
+					"four",
+					"five"
+				);
+				*/
+			
+			
+			// Alternativly we can continue to use XGens APIs
+			// and convert the results to jQuery when needed with the $() function.
+			new XGen(window.document)
+				.configure()
+				.select(".button")
+				.create("img{src=jquery.png}")
+				.$() // Turn XGenNodeList into a jQuery nodelist
+				.on('mouseover', function() {
+					alert("Bound by jQuery code");
+					return false;
+				});
+
+			
+			// Supporting <div> syntax in create() is accidental 
+			// $.html() is the jQuery way and has better browser support
+			$("#container").create('<div>Generated from XML</div>');
+
+		});
+		</script>
+	</head>
+	<body>
+		<div id="container">
+		</div>
+	</body>
+</html>
