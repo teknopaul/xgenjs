@@ -1,0 +1,121 @@
+<html lang="en">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>xGenJS test page</title>
+		<link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.1.1/slate/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		
+		<script type="text/javascript" src="../lib/xgen-browser-1.0.1.js"></script>
+		<script type="text/javascript" src="../lib/xml-serializer.js"></script>
+		<script type="text/javascript" src="../lib/xpath.js"></script>
+		<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function(){
+			
+			// XML generation and xpaths
+			var xGen = new XGen(XGen.newXmlDocument());
+			xGen.newDocument("/message/header{id=123}");
+			xGen.create("payload").setTextContent("[some data]");
+			xGen.select("//header").setAttribute("version", "1.0");
+			document.getElementById("xml-display").textContent = xGen.serialize(2);
+			
+			// jQuery integration
+			$("#jquery-display").create("div#menu/ul/li[5]/a.button/span").text("one");
+			new XGen(window.document).configure()
+				.select("#jquery-display .button").create("img{src=jquery.png}")
+				.$() // Turn XGenNodeList into a jQuery nodelist
+				.on('mouseover', function() {
+					alert("Bound by jQuery code");
+					return false;
+				});
+			
+			// XGen DOM manipulation
+			var xGen = new XGen(window.document).configure();
+			xGen.select("#dhtml-display")
+				.create("div#header/h1").setTextContent("XGen Test Page");
+			
+			xGen.select("#dhtml-display")
+				.create("div#menu/ul/li[5]/a.btn btn-primary/span").setTextContent(
+					"one",
+					"two",
+					"three",
+					"four",
+					"five"
+				);
+		});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<h1>Visual testing of XGen output rendered by the browser</h1>
+				</div>
+			</div>
+			
+			<!-- XML -->
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Expected</h3>
+					<pre id="xml-actual">
+&lt;message&gt;
+  &lt;header id=&quot;123&quot; version=&quot;1.0&quot;/&gt;  
+  &lt;payload&gt;[some data]&lt;/payload&gt;
+&lt;/message&gt;
+</pre>
+				</div>
+				<div class="col-md-6">
+					<h3>Actual</h3>
+					<pre id="xml-display">
+					</pre>
+				</div>
+			</div>
+			
+			<!-- XML -->
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Expected</h3>
+					<div class="well">
+						<ul>
+							<li><a class="button"><span>one</span><img src="jquery.png"></a></li>
+							<li><a class="button"><span>one</span><img src="jquery.png"></a></li>
+							<li><a class="button"><span>one</span><img src="jquery.png"></a></li>
+							<li><a class="button"><span>one</span><img src="jquery.png"></a></li>
+							<li><a class="button"><span>one</span><img src="jquery.png"></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h3>Actual</h3>
+					<div id="jquery-display" class="well"></div>
+				</div>
+			</div>
+			
+			<!-- DOM Manipulation -->
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Expected</h3>
+					<div class="well">
+						<div id="header">
+							<h1>XGen Test Page</h1>
+						</div>
+						<div id="menu">
+							<ul>
+								<li><a class="btn btn-primary"><span>one</span></a></li>
+								<li><a class="btn btn-primary"><span>two</span></a></li>
+								<li><a class="btn btn-primary"><span>three</span></a></li>
+								<li><a class="btn btn-primary"><span>four</span></a></li>
+								<li><a class="btn btn-primary"><span>five</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h3>Actual</h3>
+					<div id="dhtml-display" class="well"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

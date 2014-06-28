@@ -2,8 +2,13 @@
 	<head>
 		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>xGenJS test page</title>
-		<script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+		<link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.1.1/slate/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- jQuery must load before XGen -->
 		<script type="text/javascript" src="../lib/xgen-browser-1.0.1.js"></script>
+		
 		<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() {
 			
@@ -48,12 +53,21 @@
 			// Supporting <div> syntax in create() is accidental 
 			// $.html() is the jQuery way and has better browser support
 			$("#container").create('<div>Generated from XML</div>');
+			
+			// But jQuery html() is a security risk if you concatenate user content.
+			$("#container").html('<div>Hi ' + username + '</div>'); // could be an XSS bug
+
+			// The XGen way has a natural separation of HTML and data, so its easier to stay safe.
+			$("#container").create('div').text('Hi ' + username);
+			
+			// N.B. you should never concatenate user data in to XGenPaths thats guaranteed to be a security issue.
+
 
 		});
 		</script>
 	</head>
 	<body>
-		<div id="container">
+		<div id="container" class="container">
 		</div>
 	</body>
 </html>

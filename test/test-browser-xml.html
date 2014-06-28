@@ -4,33 +4,32 @@
 		<title>xGenJS test page</title>
 		<link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.1.1/slate/bootstrap.min.css" rel="stylesheet" type="text/css">
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		
-		
+
 		<script type="text/javascript" src="../lib/xgen-browser-1.0.1.js"></script>
+		<script type="text/javascript" src="../lib/xml-serializer.js"></script>
+		<script type="text/javascript" src="../lib/xpath.js"></script>
 		<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function(){
-			var xGen = new XGen(window.document).configure();
-			xGen.select("#container")
-				.create("div#header/h1").setTextContent("XGen Test Page");
 			
-			xGen.select("#container")
-				.create("div#menu/ul/li[5]/a.button/span").setTextContent(
-					"one",
-					"two",
-					"three",
-					"four",
-					"five"
-				);
+			var xGen = new XGen(XGen.newXmlDocument());
+			xGen.newDocument("/message/header{id=123}");
 			
-			xGen.select("#container")
-				.create('<div>Generated from XML</div>');
+			xGen.create("payload").setTextContent("[some data]");
 			
+			xGen.select("//header").setAttribute("version", "1.0");
+			
+			var xml = xGen.serialize(2);
+			
+			document.getElementById("display").textContent = xml;
 			
 		});
 		</script>
 	</head>
 	<body>
 		<div id="container" class="container">
+			<h1>Test Generating XML in a browser</h1>
+			<pre id="display">
+			</pre>
 		</div>
 	</body>
 </html>
