@@ -33,7 +33,7 @@ xGen.select("//body").create("div/ul/li[3]")
 		{ onclick : "home()"},
 		{ onclick : "exit()"}
 	])
-	.each(function(node) {
+	.each(function(i, node) {
 		node.setAttribute("title", node.getAttribute("onclick").substring(0,4).toUpperCase())
 		return node.parentNode;
 	})

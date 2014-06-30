@@ -1,6 +1,6 @@
 {
    "name": "xgenjs",
-   "version": "1.0.3",
+   "version": "1.0.4",
    "description": "JavaScript library for creating DOM elements with xGenPaths.",
    "keywords": [
        "dom",
