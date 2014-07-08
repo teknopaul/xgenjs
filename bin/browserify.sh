@@ -26,3 +26,10 @@ which jsmin && cat ${OUT_FILE} | jsmin > ${MIN_FILE} || :
 
 # end with a zero
 test -f ${OUT_FILE} && echo "Created ${OUT_FILE}"
+
+
+cat ../lib/xgen-path.js | awk -f browserify.awk | cat - ../lib/xgen-jquery.js > ../jquery.xgen.js
+cat ../xgen.jquery.json.in | sed "s/VERSION/${VERSION}/" > ../xgen.jquery.json
+
+# end with a zero
+test -f ../jquery.xgen.js && echo "Created ../jquery.xgen.js"

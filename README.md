@@ -2,7 +2,7 @@
 
 A Javascript implementation of xGenPaths.
 
-xgenjs enables using simple XPath like statementsto _generate_ XML.
+xgenjs enables using simple XPath like statements to _generate_ XML.
 
 The following _xGenPath_ will create the expected XML output.
 
@@ -47,4 +47,18 @@ xgenjs can also be used to create XML on the client side. Either to generate HTM
 
 The `select()` method in the browser typically uses CSS Selectors, ala jQuery. It can also use XPaths if a Javascript implementation of xpath is loaded.
 
-XGen can also integrate to jQuery providing the `$.create(xGenPath)` method which when used like this returns a jQeury NodeList.
+## Generating HTML client side
+
+XGen can also integrate to jQuery providing the `$.create(xGenPath)` method which when used like this returns a jQuery NodeList.
+
+There are two integration options, one is a jQuery plugin that only adds `$.create()`. 
+
+    <script type="text/javascript" src="jquery.xgen.js"></script>
+
+
+The other option adds the `$.create()` method if jQuery is available but is not dependent on jQuery. 
+
+    <script type="text/javascript" src="xgen-browser-1.0.x.js"></script>
+
+It also creates the XGen object which can be used to generate HTML and XML.
+This mechanism requires that you specify which type of output and which type of selector you require for each XGen object created.

@@ -1,0 +1,19 @@
+{
+	"name" : "xgen",
+	"version" : "1.0.5",
+	"title" : "Use xGenPaths to create DOM elements in jQuery",
+	"author" : {
+		"name" : "teknopaul",
+		"email" : "me@teknopaul.com",
+		"url" : "http://teknopaul.com"
+	},
+	"licenses" : [
+		{
+		"type": "LGPLv3",
+		"url": "http://opensource.org/licenses/LGPL-3.0"
+		}
+	],
+	"dependencies" : {
+		"jquery": ">=1.5"
+	}
+}

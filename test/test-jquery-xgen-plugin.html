@@ -1,0 +1,59 @@
+<html lang="en">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>xGenJS test page</title>
+		<link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.1.1/slate/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- jQuery must load before XGen -->
+		<script type="text/javascript" src="../jquery.xgen.js"></script>
+		
+		<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+			
+			// xgen is also available as a jquery plugin.
+			
+			// jQuery integration is automatic
+			// Just by adding jquery.xgen.js after jquery create() is bound.
+			
+			// Now we can use xGenPaths to create DOM elements via jQuery selectors.
+			
+			// jQuery ..... XGen .................. jQuery
+			$("#container").create("div#header/h1").text("jquery.xgen.js Plugin Test Page");
+			
+			// N.B. create() returns jQuery lists.
+			$("#container").create("div#menu/ul/li[5]/a.button/span").text("one");
+			
+			// What is returned is NOT an XGenNodeList so the following would not work
+				/*
+				.setTextContent(
+					"one",
+					"two",
+					"three",
+					"four",
+					"five"
+				);
+				*/
+			
+			// The XGen object is not included with the jquery plugin so you can not create XML this way.
+
+			// Supporting <div> syntax in create() is removed 
+			
+			// But jQuery html() is a security risk if you concatenate user content.
+			var username = "<a href='hack'>teknopaul</a>";
+			$("#container").create("div").html('<div>Hi ' + username + '</div>'); // could be an XSS bug
+
+			// The XGen way has a natural separation of HTML and data, so its easier to stay safe.
+			$("#container").create('div').text('Hi ' + username);
+			
+			// N.B. you should never concatenate user data in to XGenPaths thats guaranteed to be a security issue.
+
+		});
+		</script>
+	</head>
+	<body>
+		<div id="container" class="container">
+		</div>
+	</body>
+</html>
