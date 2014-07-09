@@ -1,0 +1,221 @@
+<html lang="en">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>xGenJS test page</title>
+		<link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.1.1/slate/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		
+		<script type="text/javascript" src="../jquery.xgen.js"></script>
+
+<script type="text/javascript">
+    // Simple JavaScript Templating
+    // John Resig - http://ejohn.org/ - MIT Licensed
+    (function(){
+      var cache = {};
+     
+      this.tmpl = function tmpl(str, data){
+        // Figure out if we're getting a template, or if we need to
+        // load the template - and be sure to cache the result.
+        var fn = !/\W/.test(str) ?
+          cache[str] = cache[str] ||
+            tmpl(document.getElementById(str).innerHTML) :
+         
+          // Generate a reusable function that will serve as a template
+          // generator (and which will be cached).
+          new Function("obj",
+            "var p=[],print=function(){p.push.apply(p,arguments);};" +
+           
+            // Introduce the data as local variables using with(){}
+            "with(obj){p.push('" +
+           
+            // Convert the template into pure JavaScript
+            str
+              .replace(/[\r\t\n]/g, " ")
+              .split("<%").join("\t")
+              .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+              .replace(/\t=(.*?)%>/g, "',$1,'")
+              .split("\t").join("');")
+              .split("%>").join("p.push('")
+              .split("\r").join("\\'")
+          + "');}return p.join('');");
+       
+        // Provide some basic currying to the user
+        return data ? fn( data ) : fn;
+      };
+    })();
+</script>
+		<script type="text/javascript">
+		
+		// Data used by both xGen and Microtemplating
+		var users = [
+			{id: 1, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 2, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 3, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 4, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 5, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 6, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 7, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 8, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 9, name : "John" , url : "http://ejohn.org/blog/javascript-micro-templating/", profile_image_url : "http://ejohn.org/files/jeresig-full-profile-2013.48.jpg" , text : "foo"},
+			{id: 10, name : "Paul" , url : "https://github.com/teknopaul", profile_image_url : "https://avatars3.githubusercontent.com/u/812666?s=460" , text : "baa"},
+			{id: 11, name : "Paul" , url : "https://github.com/teknopaul", profile_image_url : "https://avatars3.githubusercontent.com/u/812666?s=460" , text : "baa"},
+			{id: 12, name : "Paul" , url : "https://github.com/teknopaul", profile_image_url : "https://avatars3.githubusercontent.com/u/812666?s=460" , text : "baa"},
+			{id: 13, name : "Paul" , url : "https://github.com/teknopaul", profile_image_url : "https://avatars3.githubusercontent.com/u/812666?s=460" , text : "baa"},
+			{id: 14, name : "Paul" , url : "https://github.com/teknopaul", profile_image_url : "https://avatars3.githubusercontent.com/u/812666?s=460" , text : "baa"},
+			{id: 15, name : "Paul" , url : "https://github.com/teknopaul", profile_image_url : "https://avatars3.githubusercontent.com/u/812666?s=460" , text : "baa"},
+			{id: 16, name : "Paul" , url : "https://github.com/teknopaul", profile_image_url : "https://avatars3.githubusercontent.com/u/812666?s=460" , text : "baa"},
+			{id: 17, name : "Paul" , url : "https://github.com/teknopaul", profile_image_url : "https://avatars3.githubusercontent.com/u/812666?s=460" , text : "baa"},
+		];
+
+		</script>
+	</head>
+	<body>
+	
+<!-- This script from John's page -->
+<script type="text/html" id="item_tmpl">
+<% for ( var i = 0; i < users.length; i++ ) { %>
+	<div id="<%=users[i].id%>" class="<%=(i % 2 == 1 ? " even" : "")%>">
+		<div class="grid_1 alpha right">
+			<img class="righted" src="<%=users[i].profile_image_url%>"/>
+		</div>
+		<div class="grid_6 omega contents">
+			<p><b><a href="<%=users[i].url%>"><%=users[i].name%></a>:</b> <%=users[i].text%></p>
+		</div>
+	</div>
+<% } %>
+</script>
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<h1>Perf comparason of XGen and John Resig&apos;s Microtemplating</h1>
+					<p class="text-left">Notice the rendering on the left hand side causes the page to grow (reflows), and when the right column is rendered there is no change to the page size.</p>
+					<p class="text-left">In the first test xGen seems comparable to Microtemplating but in the second test Microtemplating shines. The code is identical the difference is which code takes the hit on reflows.</p>
+					<p class="text-left">If this causes a problem in xGen, you can create elements on a detacthed element created with document.createElement("div") and then attach the results to the dom causing one reflow only.</p>
+					<p class="text-left">In chrome on my laptop render times are 1 or 2ms, so I&apos;m not going to bother with any code optimization. One should only optimize perf when its needed.</p>
+				</div>
+			</div>
+			
+			
+			<div class="row">
+				<!-- John's version -->
+				<div class="col-md-6">
+					<h3>Microtemplating</h3>
+					<div class="well" id="1jresults-ms"></div>
+					<div class="well" id="1jresults"></div>
+
+<script type="text/javascript">
+
+var start = new Date();
+
+var results = document.getElementById("1jresults");
+results.innerHTML = tmpl("item_tmpl", users);
+
+var end = new Date();
+$("#1jresults-ms").text("Microtemplating render time: " + (end.getTime() - start.getTime()) + "ms" );
+
+</script>
+				</div>
+				
+				<!-- Paul's version -->
+				<div class="col-md-6">
+					<h3>xGen</h3>
+					<div class="well" id="1presults-ms"></div>
+					<div class="well" id="1presults"></div>
+
+<!-- xGen code looks a tad ugly because theoutput is meant to demo templating -->
+<script type="text/javascript">
+
+var start = new Date();
+
+var divs = $("#1presults").create("div[" + users.length + "]");
+var images = divs.create("div.grid_1 alpha right/img.righted");
+var links =  divs.create("div.grid_6 omega contents/p/b/a");
+links.after(":");
+for ( var i = 0; i < users.length; i++ ) {
+	divs[i].id = users[i].id;
+	divs[i].class = i % 2 == 1 ? " even" : "";
+	images[i].src = users[i].profile_image_url;
+	var link = links[i];
+	link.href = users[i].url;
+	link.innerHTML = users[i].name;
+	link.parentNode.insertAdjacentHTML('afterend', " " + users[i].text);
+}
+
+var end = new Date();
+$("#1presults-ms").text("xGen render time: " + (end.getTime() - start.getTime()) + "ms" );
+
+</script>
+
+
+				</div>
+				
+			</div><!-- end row-->
+			
+			<div class="row">
+			<hr/>
+			</div>
+			
+			<div class="row">
+			
+				<!-- Paul's version -->
+				<div class="col-md-6">
+					<h3>xGen</h3>
+					<div class="well" id="2presults-ms"></div>
+					<div class="well" id="2presults"></div>
+
+<script type="text/javascript">
+
+var start = new Date();
+
+var divs = $("#2presults").create("div[" + users.length + "]");
+var images = divs.create("div.grid_1 alpha right/img.righted");
+var links =  divs.create("div.grid_6 omega contents/p/b/a");
+links.after(":");
+for ( var i = 0; i < users.length; i++ ) {
+	divs[i].id = users[i].id;
+	divs[i].class = i % 2 == 1 ? " even" : "";
+	images[i].src = users[i].profile_image_url;
+	var link = links[i];
+	link.href = users[i].url;
+	link.innerHTML = users[i].name;
+	link.parentNode.insertAdjacentHTML('afterend', " " + users[i].text);
+}
+
+var end = new Date();
+$("#2presults-ms").text("xGen render time: " + (end.getTime() - start.getTime()) + "ms" );
+
+</script>
+
+
+				</div>
+				
+				<!-- John's version -->
+				<div class="col-md-6">
+					<h3>Microtemplating</h3>
+					<div class="well" id="2jresults-ms"></div>
+					<div class="well" id="2jresults"></div>
+
+<script type="text/javascript">
+
+var start = new Date();
+
+var results = document.getElementById("2jresults");
+results.innerHTML = tmpl("item_tmpl", users);
+
+var end = new Date();
+$("#2jresults-ms").text("Microtemplating render time: " + (end.getTime() - start.getTime()) + "ms" );
+
+</script>
+				</div>
+				
+			</div>
+			
+			<div class="row">
+			</div>
+		</div>
+	</body>
+</html>

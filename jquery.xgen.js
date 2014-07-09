@@ -172,7 +172,25 @@ jQuery.prototype.create = function(xGenPath) {
 	}
 	
 	var parsedPath = new XGenPath(xGenPath, true);
-	this._createPath(this, parsedPath, tailNodes);
+	
+	var context = this;
+	if (parsedPath.length > 1) {
+		context = [];
+		for (var i = 0 ; i < this.length ; i++ ) {
+			context.push(document.createElement("div"));
+		}
+	}
+	
+	this._createPath(context, parsedPath, tailNodes);
+	
+	if (parsedPath.length > 1) {
+		for (var i = 0 ; i < this.length ; i++ ) {
+			var generated = context[i].childNodes;
+			for (var e = 0 ; e < generated.length ; e++ ) {
+				this[i].appendChild(generated[e]);
+			}
+		}
+	}
 	
 	return jQuery(tailNodes);
 };
