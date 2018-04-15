@@ -2,7 +2,7 @@
 
 A Javascript implementation of xGenPaths.
 
-xgenjs enables using simple XPath like statements to _generate_ XML.
+xgenjs enables using XPath like statements to _generate_ XML.
 
 The following _xGenPath_ will create the expected XML output.
 
@@ -12,8 +12,8 @@ xGenPaths were designed for generating XML documents but also serve generating H
 
 ## Generating XML server side
 
-xgenjs uses standard (DOM APIs)[https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation] of which there are a few implementations for nodejs.
-The code is tested with (xmldom)[https://github.com/jindw/xmldom], any DOM that conforms to DOM Level 2 should work.
+xgenjs uses standard [DOM APIs](https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation) of which there are a few implementations for nodejs.
+The code is tested with [xmldom](https://github.com/jindw/xmldom), any DOM that conforms to DOM Level 2 should work.
 
 Typical code is as follows (HTML schema used as an example)
 
